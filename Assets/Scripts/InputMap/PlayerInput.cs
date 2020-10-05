@@ -58,10 +58,10 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c61b6467-a27c-4c24-afef-c6f8b9254c76"",
-                    ""path"": ""<Gamepad>/leftStick"",
+                    ""path"": ""<XInputController>/leftStick"",
                     ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Default"",
+                    ""processors"": ""ScaleVector2(x=5,y=5)"",
+                    ""groups"": """",
                     ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
