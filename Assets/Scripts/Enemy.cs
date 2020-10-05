@@ -30,7 +30,6 @@ public class Enemy : MonoBehaviour
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             float step = moveSpeed * Time.deltaTime; // calculate distance to move
             transform.position = Vector3.MoveTowards(transform.position, playerVector, step);
-            Debug.Log("i am moving");
         }
         
     }

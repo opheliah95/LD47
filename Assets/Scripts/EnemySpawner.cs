@@ -10,10 +10,40 @@ public class EnemySpawner : MonoBehaviour
     public int enemiesToSpawn = 5;
     public GameObject enemyPrefab;
     public Transform centre;
+
     
-    // Start is called before the first frame update
-    void Start()
+
+
+    // delegate subscription
+    private void OnEnable()
     {
+        GameManager.onEnemySpawn += spawnEnemy;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.onEnemySpawn -= spawnEnemy;
+    }
+
+    
+
+    Vector3 RandomCircle(int i)
+    {
+        float angle = AngleOffset * i;
+        Vector3 pos = Vector3.zero;
+        pos.x = centre.position.x + spawnRadius * Mathf.Sin(angle);
+        pos.z = centre.position.z + spawnRadius * Mathf.Cos(angle);
+        return pos;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(centre.position, spawnRadius);
+    }
+
+    public void spawnEnemy()
+    {
+        AngleOffset = 360 / enemiesToSpawn;
         for (int i = 0; i < enemiesToSpawn; i++)
         {
             Vector3 spawnPos = RandomCircle(i);
@@ -21,16 +51,5 @@ public class EnemySpawner : MonoBehaviour
             GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
             enemy.GetComponent<Enemy>().setTarget(centre);
         }
-
-    }
-
-
-    Vector3 RandomCircle(int i)
-    {
-        float angle = AngleOffset * i;
-        Vector3 pos = Vector3.zero;
-        pos.x = centre.position.x + spawnRadius * Mathf.Sin(angle) + offset;
-        pos.z = centre.position.z + spawnRadius * Mathf.Cos(angle) + offset;
-        return pos;
     }
 }
