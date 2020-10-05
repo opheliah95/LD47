@@ -19,7 +19,6 @@ public class Enemy : MonoBehaviour
 
     bool canHurt = true;
 
-
     // Update is called once per frame
     void Update()
     {
