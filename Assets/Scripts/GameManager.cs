@@ -15,6 +15,10 @@ public class GameManager : MonoBehaviour
     public delegate void SpawnEnemyDelegate();
     public static SpawnEnemyDelegate onEnemySpawn;
 
+    // delegate for update UI
+    public delegate void UpdateLifeDelegate(int life);
+    public static UpdateLifeDelegate onLifeChange;
+
     bool initialSpawn = true;
 
     void Update()

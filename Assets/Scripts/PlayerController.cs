@@ -59,12 +59,14 @@ public class PlayerController : MonoBehaviour
     public void onHit()
     {
         anim.SetTrigger("onHit");
-
+       
         // gameover function
         if (health < 1)
             gameOver();
-
+       
         health--;
+        health = (health < 0) ? 0 : health;
+        GameManager.onLifeChange(health);
     }
     private void Attack()
     {

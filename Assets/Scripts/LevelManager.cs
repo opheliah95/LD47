@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
-
+    public Text UIText;
     public void RestartLevel()
     {
         SceneManager.LoadScene(0);
@@ -20,10 +21,17 @@ public class LevelManager : MonoBehaviour
     private void OnEnable()
     {
         PlayerController.gameOver += GameOver;
+        GameManager.onLifeChange += updateLife;
     }
 
     private void OnDisable()
     {
         PlayerController.gameOver -= GameOver;
+        GameManager.onLifeChange -= updateLife;
+    }
+
+    public void updateLife(int life)
+    {
+        UIText.text = "X" + life;
     }
 }
