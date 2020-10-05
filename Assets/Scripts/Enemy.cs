@@ -9,8 +9,6 @@ public class Enemy : MonoBehaviour
 
     Vector3 playerVector;
 
-    public float moveSpeed = 5f;
-
     [SerializeField]
     int health = 2;
 
@@ -28,7 +26,7 @@ public class Enemy : MonoBehaviour
         if (!isKnockedBack)
         {
             GetComponent<Rigidbody>().velocity = Vector3.zero;
-            float step = moveSpeed * Time.deltaTime; // calculate distance to move
+            float step = EnemySpawner.moveSpeed * Time.deltaTime; // calculate distance to move
             transform.position = Vector3.MoveTowards(transform.position, playerVector, step);
         }
         

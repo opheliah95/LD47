@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
     public int enemiesToSpawn = 5;
     public GameObject enemyPrefab;
     public Transform centre;
-
+    public static float moveSpeed = 10;
     
 
 
@@ -51,5 +51,12 @@ public class EnemySpawner : MonoBehaviour
             GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
             enemy.GetComponent<Enemy>().setTarget(centre);
         }
+    }
+
+    public void LevelDifficulty(int moreEnemyToSpawn = 0, float speedBoost = 1, float radiusEnlarger = 1)
+    {
+        enemiesToSpawn += moreEnemyToSpawn;
+        moveSpeed *= speedBoost;
+        spawnRadius *= radiusEnlarger;
     }
 }

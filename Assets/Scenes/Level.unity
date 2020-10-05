@@ -191,7 +191,7 @@ MonoBehaviour:
   spawnRadius: 50
   AngleOffset: 30
   offset: 20
-  enemiesToSpawn: 10
+  enemiesToSpawn: 5
   enemyPrefab: {fileID: 8990255516490868911, guid: ac4462075bf51e745afd1aec593ddb67, type: 3}
   centre: {fileID: 154643131}
 --- !u!4 &654822825
@@ -220,6 +220,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fedc3f87b433d9e4e9733d3e4404198b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedBoost: 1.1
+  enemyIncrease: 2
+  radiusBoost: 1.1
 --- !u!1 &803155959
 GameObject:
   m_ObjectHideFlags: 0
