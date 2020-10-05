@@ -33,6 +33,14 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Tap,SlowTap""
+                },
+                {
+                    ""name"": ""Quit"",
+                    ""type"": ""Button"",
+                    ""id"": ""baf7750e-6b77-42ea-8fa4-aaf670e62118"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -79,6 +87,28 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cba97144-2ee8-4bb5-ac2f-279f857d2975"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f4f9df68-afa5-4852-8de9-038593d28ad3"",
+                    ""path"": ""<XInputController>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Quit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -111,6 +141,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_Movements = asset.FindActionMap("Movements", throwIfNotFound: true);
         m_Movements_Rotate = m_Movements.FindAction("Rotate", throwIfNotFound: true);
         m_Movements_Attack = m_Movements.FindAction("Attack", throwIfNotFound: true);
+        m_Movements_Quit = m_Movements.FindAction("Quit", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -162,12 +193,14 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private IMovementsActions m_MovementsActionsCallbackInterface;
     private readonly InputAction m_Movements_Rotate;
     private readonly InputAction m_Movements_Attack;
+    private readonly InputAction m_Movements_Quit;
     public struct MovementsActions
     {
         private @PlayerInput m_Wrapper;
         public MovementsActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Rotate => m_Wrapper.m_Movements_Rotate;
         public InputAction @Attack => m_Wrapper.m_Movements_Attack;
+        public InputAction @Quit => m_Wrapper.m_Movements_Quit;
         public InputActionMap Get() { return m_Wrapper.m_Movements; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -183,6 +216,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Attack.started -= m_Wrapper.m_MovementsActionsCallbackInterface.OnAttack;
                 @Attack.performed -= m_Wrapper.m_MovementsActionsCallbackInterface.OnAttack;
                 @Attack.canceled -= m_Wrapper.m_MovementsActionsCallbackInterface.OnAttack;
+                @Quit.started -= m_Wrapper.m_MovementsActionsCallbackInterface.OnQuit;
+                @Quit.performed -= m_Wrapper.m_MovementsActionsCallbackInterface.OnQuit;
+                @Quit.canceled -= m_Wrapper.m_MovementsActionsCallbackInterface.OnQuit;
             }
             m_Wrapper.m_MovementsActionsCallbackInterface = instance;
             if (instance != null)
@@ -193,6 +229,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
+                @Quit.started += instance.OnQuit;
+                @Quit.performed += instance.OnQuit;
+                @Quit.canceled += instance.OnQuit;
             }
         }
     }
@@ -210,5 +249,6 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     {
         void OnRotate(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
+        void OnQuit(InputAction.CallbackContext context);
     }
 }
