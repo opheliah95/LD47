@@ -13,17 +13,23 @@ public class Enemy : MonoBehaviour
 
     int health = 2;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    bool isKnockedBack;
+    [SerializeField]
+    float knockBackForce = 30f;
+
 
     // Update is called once per frame
     void Update()
     {
-        float step = moveSpeed * Time.deltaTime; // calculate distance to move
-        transform.position = Vector3.MoveTowards(transform.position, playerVector, step);
+        if (!isKnockedBack)
+        {
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            float step = moveSpeed * Time.deltaTime; // calculate distance to move
+            transform.position = Vector3.MoveTowards(transform.position, playerVector, step);
+            Debug.Log("i am moving");
+        }
+        
     }
 
     public void setTarget(Transform myTarget)
@@ -31,26 +37,59 @@ public class Enemy : MonoBehaviour
         this.target = myTarget;
         playerVector = new Vector3(target.position.x, transform.position.y, target.position.z);
         transform.LookAt(target);
-    
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Weapon")
         {
-            knockBack();
-            health--;
+         
+            if (GameObject.FindGameObjectWithTag("PlayerPrefab").GetComponent<PlayerController>().isAttacking)
+            {
+                knockBack();
+                health--;
+            }
+
+
         }
         else if (other.gameObject.tag == "Player")
         {
             GetComponent<Animator>().SetTrigger("Attack");
+            FindObjectOfType<PlayerController>().onHit();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Weapon")
+        {
+
+            if (GameObject.FindGameObjectWithTag("PlayerPrefab").GetComponent<PlayerController>().isAttacking)
+            {
+                knockBack();
+                health--;
+            }
+
+
         }
     }
 
     void knockBack()
     {
-        UnityEngine.Debug.Log("hello");
-        GetComponent<Animator>().SetTrigger("Hit");
-        GetComponent<Rigidbody>().AddForce(-transform.forward * 10f, ForceMode.Impulse);
+        if (!isKnockedBack)
+        {
+            GetComponent<Animator>().SetTrigger("Hit");
+            GetComponent<Rigidbody>().AddForce(-transform.forward * knockBackForce, ForceMode.Impulse);
+            isKnockedBack = true;
+            StartCoroutine("updateStat");
+        }
+       
+    }
+
+    IEnumerator updateStat()
+    {
+        yield return new WaitForSeconds(0.3f);
+        isKnockedBack = false;
     }
 }

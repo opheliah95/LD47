@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     int health = 3;
 
+    public bool isAttacking = false;
     private void Awake()
     {
         input = new PlayerInput(); // create an new instance of input system
@@ -50,19 +51,17 @@ public class PlayerController : MonoBehaviour
         transform.localEulerAngles = m_Rotation;
     }
 
-    private void OnTriggerEnter(Collider other)
+
+    public void onHit()
     {
-        if (other.gameObject.tag == "Enemy")
-        {
-            anim.SetTrigger("onHit");
-            health--;
-        }
+        anim.SetTrigger("onHit");
+        health--;
     }
-
-
     private void Attack()
     {
         anim.SetTrigger("onAttack");
+        isAttacking = true;
+        StartCoroutine("DisableAttack");
     }
 
     private void OnEnable()
@@ -77,7 +76,14 @@ public class PlayerController : MonoBehaviour
 
     private void QuitGame()
     {
-        UnityEngine.Debug.Log("Bye");
         Application.Quit();
     }
+
+    IEnumerator DisableAttack()
+    {
+        yield return new WaitForSeconds(0.5f);
+        isAttacking = false;
+    }
+
+
 }
