@@ -1536,9 +1536,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 754147197359808881}
+  - component: {fileID: 7947124238950351904}
   m_Layer: 0
   m_Name: Fish_Skeleton
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1558,6 +1559,19 @@ Transform:
   m_Father: {fileID: 8613166646147641877}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7947124238950351904
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5178069467925814152}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 4.7381234, z: 9.904901}
+  m_Center: {x: 0, y: 1.8690794, z: -4.4525495}
 --- !u!1 &5301864746331362032
 GameObject:
   m_ObjectHideFlags: 0
@@ -2775,6 +2789,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8613166646147641877}
   - component: {fileID: 8071193884246699225}
+  - component: {fileID: -1329705283141968607}
   m_Layer: 0
   m_Name: fish_ghost
   m_TagString: Untagged
@@ -2824,3 +2839,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-1329705283141968607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8990255516490868911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31b441446c7a43f4581e21a776bc884e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  moveSpeed: 5

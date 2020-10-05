@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public float spawnRadius = 10;
+    public float AngleOffset;
     public float offset = 30f;
     public int enemiesToSpawn = 5;
     public GameObject enemyPrefab;
@@ -15,20 +16,21 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < enemiesToSpawn; i++)
         {
-            Vector3 spawnPos = RandomCircle();
-            //Quaternion rot = Quaternion.FromToRotation(Vector3.forward, centre.position - spawnPos);
-            Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+            Vector3 spawnPos = RandomCircle(i);
+            spawnPos.y = enemyPrefab.transform.position.y;
+            GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+            enemy.GetComponent<Enemy>().setTarget(centre);
         }
 
     }
 
 
-    Vector3 RandomCircle()
+    Vector3 RandomCircle(int i)
     {
-        float angle = Random.value * 360;
+        float angle = AngleOffset * i;
         Vector3 pos = Vector3.zero;
-        pos.x = centre.position.x + spawnRadius * Mathf.Sin(angle * Mathf.Deg2Rad) + offset;
-        pos.z = centre.position.z + spawnRadius * Mathf.Sin(angle * Mathf.Deg2Rad) + offset;
+        pos.x = centre.position.x + spawnRadius * Mathf.Sin(angle) + offset;
+        pos.z = centre.position.z + spawnRadius * Mathf.Cos(angle) + offset;
         return pos;
     }
 }
