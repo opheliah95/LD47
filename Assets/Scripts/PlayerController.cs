@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
     public void onHit()
     {
         anim.SetTrigger("onHit");
+        health--;
         SoundManager.playEnemySound(hit);
         // gameover function
         if (health < 1)
@@ -70,7 +71,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            health--;
+            
             health = (health < 0) ? 0 : health;
             GameManager.onLifeChange(health);
         }

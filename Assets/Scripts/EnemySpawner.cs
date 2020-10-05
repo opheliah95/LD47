@@ -11,6 +11,7 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemyPrefab;
     public Transform centre;
     public static float moveSpeed = 10;
+    public int round = 0;
     
 
 
@@ -43,6 +44,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void spawnEnemy()
     {
+        GameManager.onRoundChange(round);
         AngleOffset = 360 / enemiesToSpawn;
         for (int i = 0; i < enemiesToSpawn; i++)
         {
@@ -58,5 +60,6 @@ public class EnemySpawner : MonoBehaviour
         enemiesToSpawn += moreEnemyToSpawn;
         moveSpeed *= speedBoost;
         spawnRadius *= radiusEnlarger;
+        round++;
     }
 }

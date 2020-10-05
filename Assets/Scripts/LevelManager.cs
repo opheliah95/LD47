@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour
 {
-    public Text UIText;
+    public Text LifeText;
+    public Text RoundText;
     public void RestartLevel()
     {
         SceneManager.LoadScene(0);
@@ -14,7 +15,6 @@ public class LevelManager : MonoBehaviour
 
     public void GameOver()
     {
-        Debug.Log("you are dead");
         GetComponent<Animator>().SetTrigger("FadeIn");
     }
 
@@ -22,16 +22,23 @@ public class LevelManager : MonoBehaviour
     {
         PlayerController.gameOver += GameOver;
         GameManager.onLifeChange += updateLife;
+        GameManager.onRoundChange += updateRound;
     }
 
     private void OnDisable()
     {
         PlayerController.gameOver -= GameOver;
         GameManager.onLifeChange -= updateLife;
+        GameManager.onRoundChange -= updateRound;
     }
 
     public void updateLife(int life)
     {
-        UIText.text = "X" + life;
+        LifeText.text = "X" + life;
+    }
+
+    public void updateRound(int round)
+    {
+        RoundText.text = "Round: " + round;
     }
 }

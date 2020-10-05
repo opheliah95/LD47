@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour
     public delegate void UpdateLifeDelegate(int life);
     public static UpdateLifeDelegate onLifeChange;
 
+    public delegate void UpdateRoundInfo(int round);
+    public static UpdateRoundInfo onRoundChange;
+
+
     bool initialSpawn = true;
 
     void Update()
@@ -36,7 +40,6 @@ public class GameManager : MonoBehaviour
                 {
                     FindObjectOfType<EnemySpawner>().LevelDifficulty(enemyIncrease, speedBoost, radiusBoost);
                 }
-
                 onEnemySpawn();
             }
         }
