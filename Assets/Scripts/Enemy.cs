@@ -11,12 +11,15 @@ public class Enemy : MonoBehaviour
 
     public float moveSpeed = 5f;
 
+    [SerializeField]
     int health = 2;
 
     [SerializeField]
     bool isKnockedBack;
     [SerializeField]
     float knockBackForce = 30f;
+
+    bool canHurt = true;
 
 
     // Update is called once per frame
@@ -44,13 +47,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.tag == "Weapon")
         {
-         
-            if (GameObject.FindGameObjectWithTag("PlayerPrefab").GetComponent<PlayerController>().isAttacking)
-            {
-                knockBack();
-                health--;
-            }
-
+            OnCollideWithWeapon();
 
         }
         else if (other.gameObject.tag == "Player")
@@ -64,14 +61,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.tag == "Weapon")
         {
-
-            if (GameObject.FindGameObjectWithTag("PlayerPrefab").GetComponent<PlayerController>().isAttacking)
-            {
-                knockBack();
-                health--;
-            }
-
-
+            OnCollideWithWeapon();
         }
     }
 
@@ -91,5 +81,30 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSeconds(0.3f);
         isKnockedBack = false;
+        canHurt = true;
+    }
+
+    void ReduceHealth()
+    {
+        if(health < 1)
+            Destroy(gameObject);
+
+        if (canHurt)
+        {
+            health--;
+            canHurt = false;
+        }
+           
+    }
+
+    void OnCollideWithWeapon()
+    {
+
+        if (GameObject.FindGameObjectWithTag("PlayerPrefab").GetComponent<PlayerController>().isAttacking)
+        {
+            ReduceHealth();
+            knockBack();
+            
+        }
     }
 }
