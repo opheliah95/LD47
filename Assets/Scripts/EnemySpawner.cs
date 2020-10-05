@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
     public int enemiesToSpawn = 5;
     public GameObject enemyPrefab;
     public Transform centre;
-    public static float moveSpeed = 10;
+    public static float moveSpeed = 5;
     public int round = 0;
     
 

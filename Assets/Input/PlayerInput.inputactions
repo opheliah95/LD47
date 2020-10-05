@@ -47,7 +47,7 @@
                     "id": "c61b6467-a27c-4c24-afef-c6f8b9254c76",
                     "path": "<XInputController>/leftStick",
                     "interactions": "",
-                    "processors": "ScaleVector2(x=5,y=5)",
+                    "processors": "ScaleVector2(x=10,y=10)",
                     "groups": "",
                     "action": "Rotate",
                     "isComposite": false,
