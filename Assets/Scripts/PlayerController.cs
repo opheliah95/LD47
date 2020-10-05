@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour
     int health = 3;
 
     public bool isAttacking = false;
+
+    // game state delegates
+    public delegate void OnGameOverDelegate();
+    public static OnGameOverDelegate gameOver;
     private void Awake()
     {
         input = new PlayerInput(); // create an new instance of input system
@@ -55,6 +59,11 @@ public class PlayerController : MonoBehaviour
     public void onHit()
     {
         anim.SetTrigger("onHit");
+
+        // gameover function
+        if (health < 1)
+            gameOver();
+
         health--;
     }
     private void Attack()
