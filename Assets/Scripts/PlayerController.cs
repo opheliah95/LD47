@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     float rotateSpeed = 2.0f;
     private Vector2 m_Rotation;
 
+    [SerializeField]
+    int health = 3;
+
     private void Awake()
     {
         input = new PlayerInput(); // create an new instance of input system
@@ -46,6 +49,16 @@ public class PlayerController : MonoBehaviour
         m_Rotation.y += rotate.x * scaledRotateSpeed;
         transform.localEulerAngles = m_Rotation;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            anim.SetTrigger("onHit");
+            health--;
+        }
+    }
+
 
     private void Attack()
     {
